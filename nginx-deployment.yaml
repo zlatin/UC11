@@ -1,8 +1,8 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  namespace: nginx
   name: nginx-deployment
+  namespace: nginx
   labels:
     app: nginx
     component: main
@@ -17,6 +17,9 @@ spec:
     metadata:
       labels:
         app: nginx
+        component: main
+        env: prod
+        tier: frontend
     spec:
       containers:
       - name: nginx
@@ -27,10 +30,15 @@ spec:
         - name: config-volume
           mountPath: /etc/nginx/nginx.conf
           subPath: nginx.conf
-      volumes:
-      - name: config-volume
-        configMap:
-          name: nginx-config
+        # Here is where livenessProbe, readinessProbe, and resources should be
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 80
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 80
         resources:
           requests:
             memory: "64Mi"
@@ -38,15 +46,7 @@ spec:
           limits:
             memory: "128Mi"
             cpu: "500m"
-        livenessProbe:
-          httpGet:
-            path: /
-            port: 80
-          initialDelaySeconds: 30
-          periodSeconds: 10
-        readinessProbe:
-          httpGet:
-            path: /
-            port: 80
-          initialDelaySeconds: 5
-          periodSeconds: 5
+      volumes:
+      - name: config-volume
+        configMap:
+          name: nginx-config

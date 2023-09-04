@@ -21,6 +21,7 @@ spec:
         env: prod
         tier: frontend
     spec:
+      serviceAccountName: nginx-service-account
       containers:
       - name: nginx
         image: nginx:latest

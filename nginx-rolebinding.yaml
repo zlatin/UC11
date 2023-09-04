@@ -1,0 +1,15 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: nginx-rolebinding
+  namespace: nginx
+  labels:
+    app: nginx
+subjects:
+- kind: ServiceAccount
+  name: nginx-service-account
+  namespace: nginx
+roleRef:
+  kind: Role
+  name: nginx-role
+  apiGroup: rbac.authorization.k8s.io

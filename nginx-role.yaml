@@ -1,0 +1,14 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  namespace: nginx
+  name: nginx-role
+  labels:
+    app: nginx
+    component: main
+    env: prod
+    tier: frontend
+rules:
+- apiGroups: [""]
+  resources: ["pods", "services"]
+  verbs: ["get", "list"]

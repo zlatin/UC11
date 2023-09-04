@@ -1,0 +1,15 @@
+apiVersion: policy/v1beta1
+kind: PodDisruptionBudget
+metadata:
+  name: nginx-pdb
+  namespace: nginx
+  labels:
+    app: nginx
+    component: main
+    env: prod
+    tier: frontend
+spec:
+  selector:
+    matchLabels:
+      app: nginx
+  minAvailable: 2  # At least 2 replicas of the NGINX server should always be available

@@ -31,7 +31,6 @@ spec:
         - name: config-volume
           mountPath: /etc/nginx/nginx.conf
           subPath: nginx.conf
-        # Here is where livenessProbe, readinessProbe, and resources should be
         livenessProbe:
           httpGet:
             path: /

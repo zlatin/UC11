@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: nginx
+  labels:
+    app: nginx
+    component: main
+    env: prod
+    tier: frontend
